@@ -31,12 +31,17 @@ pipeline {
         }
 
         stage('Deploy to Minikube') {
-            steps {
-                script {
-                    sh "kubectl apply -f k8s-deployment.yaml"
-                }
-            }
+    steps {
+        script {
+            // Optional: list files for debugging
+            sh "ls -l k8s/"
+            
+            // Apply deployment and service separately
+            sh "kubectl apply -f k8s/deployment.yaml"
+            sh "kubectl apply -f k8s/service.yaml"
         }
+    }
+}
     }
 
     post {
